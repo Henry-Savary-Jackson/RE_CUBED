@@ -1,0 +1,30 @@
+{
+    "WASTE": {
+        "total_recyclable" : 10.0,
+        "total_non_recyclable": 16.0,
+        "2022 JAN":{
+            "totat_recyclable": 1.0,
+            "totaL_non_recyclable" : 5.0
+        },
+        "2022 FEB":{
+            "totat_recyclable": 3.0,
+            "totaL_non_recyclable" : 6.0
+        },
+        "2022 MARCH":{
+            "totat_recyclable": 6.0,
+            "totaL_non_recyclable" : 5.0
+        },
+        "2022 APRIL":{
+            "totat_recyclable": 0.0,
+            "totaL_non_recyclable" : 0.0
+        }
+    },
+    "REUSE":{
+        "total": 3.5,
+        "2022 JAN": 1.0,
+        "2022 FEB": 2.0,
+        "2022 MARCH": 0.5,
+        "2022 APRIL": 0.0
+    }
+    
+}

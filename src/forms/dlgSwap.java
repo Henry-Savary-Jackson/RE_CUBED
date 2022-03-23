@@ -15,8 +15,9 @@ public class dlgSwap extends javax.swing.JDialog {
     /**
      * Creates new form dlgSwap
      */
-    public dlgSwap(Point location) {
+    public dlgSwap(Point location, frmReduce _form) {
 	initComponents();
+	form = _form;
 	setLocation(location);
     }
 
@@ -162,4 +163,5 @@ public class dlgSwap extends javax.swing.JDialog {
     double dReusableAmount;
     double dNonReusableAmount;
     double dNonReusableWeight;
+    frmReduce form;
 }

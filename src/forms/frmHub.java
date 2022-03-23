@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -24,8 +25,9 @@ public class frmHub extends javax.swing.JFrame {
     /**
      * Creates new form hubForm
      */
-    public frmHub(Point location) {
+    public frmHub(Point location, JSONObject _data) {
 	initComponents();
+	data = _data;
 	try {
 	    Image logo= ImageIO.read(new File("src/images/re_cubed_logo_bg.png")).getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
 	    lblLogo.setIcon(new ImageIcon(logo));
@@ -220,9 +222,9 @@ public class frmHub extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
         jLabel4.setFont(new java.awt.Font("Futura", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("RE^3");
+        jLabel4.setText("(RE)^3");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(200, 30, 50, 40);
+        jLabel4.setBounds(190, 30, 70, 40);
 
         lblLogo.setFont(new java.awt.Font("Futura", 1, 18)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(0, 0, 0));
@@ -240,26 +242,26 @@ public class frmHub extends javax.swing.JFrame {
 
     private void btnProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgressActionPerformed
         // TODO add your handling code here:
-	new frmStats(getLocation());
+	new frmStats(getLocation(),data);
 	
 	dispose();
     }//GEN-LAST:event_btnProgressActionPerformed
 
     private void btnWasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWasteActionPerformed
         // TODO add your handling code here:
-	new frmWaste(getLocation());
+	new frmWaste(getLocation(),data);
 	
 	dispose();
     }//GEN-LAST:event_btnWasteActionPerformed
 
     private void btnReduceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReduceActionPerformed
         // TODO add your handling code here:
-	new frmReduce(getLocation());
+	new frmReduce(getLocation(),data);
 	
 	dispose();
     }//GEN-LAST:event_btnReduceActionPerformed
 
-
+    JSONObject data ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProgress;
     private javax.swing.JButton btnReduce;

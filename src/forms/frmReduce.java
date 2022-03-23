@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -23,10 +24,10 @@ public class frmReduce extends javax.swing.JFrame {
     /**
      * Creates new form inpForm
      */
-    public frmReduce(Point location) {
+    public frmReduce(Point location, JSONObject _data) {
 	initComponents();
 	try {
-	    Image logo= ImageIO.read(new File("src/images/add_image.png")).getScaledInstance(btnNew.getWidth(), btnNew.getHeight(), Image.SCALE_SMOOTH);
+	    Image logo= ImageIO.read(new File("src/images/add_image.png")).getScaledInstance(btnNew.getWidth()-10, btnNew.getHeight()-10, Image.SCALE_SMOOTH);
 	    btnNew.setIcon(new ImageIcon(logo));
 	} catch (MalformedURLException ex) {
 	    Logger.getLogger(frmHub.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,21 +129,22 @@ public class frmReduce extends javax.swing.JFrame {
 
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
         // TODO add your handling code here:
-	frmHub hub = new frmHub(getLocation());
+	frmHub hub = new frmHub(getLocation(),data);
 	
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-	new dlgSwap( new Point(  getLocation().x,  getLocation().y + (getWidth()/2) ) ).setVisible(true);
+	new dlgSwap( new Point(  getLocation().x,  getLocation().y + (getWidth()/2) ), this ).setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRecordActionPerformed
 
-
+    JSONObject data;
+    public double dReuse;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JButton btnNew;

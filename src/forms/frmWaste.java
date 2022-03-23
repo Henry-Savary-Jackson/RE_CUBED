@@ -5,27 +5,59 @@
 package forms;
 
 import java.awt.Point;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import org.json.simple.JSONObject;
+import util.JSONUtils;
 
 /**
  *
  * @author hsavaryjackson
  */
-public class frmWaste extends javax.swing.JFrame {
+public class frmWaste extends javax.swing.JFrame implements WindowListener {
 
     /**
      * Creates new form inpForm
      */
-    public frmWaste(Point location) {
+    public frmWaste(Point location, JSONObject _data) {
 	
 	initComponents();
+	
+	data = _data;
+	
+	dRecyclable = (double)((JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL")).get("totat_recyclable");
+	dNonRecyclable = (double)((JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL")).get("totat_non_recyclable");
+	
 	setLocation(location);
 	
 	JPanel pnlRecyclable = new JPanel();
 	JPanel pnlNonRecyclable = new JPanel();
 	
-	tabWaste.addTab("RECYCLABLE", pnlRecyclable);
-	tabWaste.addTab("NON-RECYCLABLE", pnlNonRecyclable);
+	
+	pnlRecyclable.setLayout(new BoxLayout(pnlRecyclable,BoxLayout.Y_AXIS));
+	pnlNonRecyclable.setLayout(new BoxLayout(pnlNonRecyclable,BoxLayout.Y_AXIS));
+	
+	JScrollPane scrlRecyclable = new JScrollPane(pnlRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	JScrollPane scrlNonRecyclable = new JScrollPane(pnlNonRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	
+	pnlNonRecyclable.add(new pnlWaste("sandwich boxes","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
+	pnlNonRecyclable.add(new pnlWaste("chip bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
+	pnlNonRecyclable.add(new pnlWaste("salad tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
+	pnlNonRecyclable.add(new pnlWaste("raisin bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
+	pnlNonRecyclable.add(new pnlWaste("sippy bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
+	
+	pnlRecyclable.add(new pnlWaste("yoghurt tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
+	pnlRecyclable.add(new pnlWaste("plastic water bottles","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
+	pnlRecyclable.add(new pnlWaste("bread bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
+	pnlRecyclable.add(new pnlWaste("bottle tops","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
+	pnlRecyclable.add(new pnlWaste("milk sachets","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
+	
+	tabWaste.addTab("RECYCLABLE", scrlRecyclable);
+	tabWaste.addTab("NON-RECYCLABLE", scrlNonRecyclable);
 	
 	setVisible(true);
     }
@@ -63,13 +95,40 @@ public class frmWaste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
-        // TODO add your handling code here:
-	frmHub hub =new frmHub(getLocation());
+	save();
+	frmHub hub =new frmHub(getLocation(),data);
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
+    public double dRecyclable;
+    public double dNonRecyclable;
+    JSONObject data;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JTabbedPane tabWaste;
     // End of variables declaration//GEN-END:variables
+
+    void save(){
+	JSONObject month = (JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL");
+	month.put("totat_recyclable", dRecyclable);
+	month.put("totat_non_recyclable", dNonRecyclable);
+	((JSONObject)data.get("WASTE")).put("2022 APRIl", month);
+    }
+    @Override
+    public void windowOpened(WindowEvent e) {}
+    @Override
+    public void windowClosing(WindowEvent e) {
+	save();
+	JSONUtils.writeJSON("info.json", data);
+    }
+    @Override
+    public void windowClosed(WindowEvent e) {}
+    @Override
+    public void windowIconified(WindowEvent e) {}
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+    @Override
+    public void windowActivated(WindowEvent e) {}
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
 }

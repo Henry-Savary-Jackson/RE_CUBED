@@ -7,6 +7,7 @@ package forms;
 import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -17,7 +18,7 @@ public class frmStats extends javax.swing.JFrame {
     /**
      * Creates new form inpForm
      */
-    public frmStats(Point location) {
+    public frmStats(Point location,JSONObject _data) {
 	initComponents();
 	setLocation(location);
 	JPanel pnlWaste = new JPanel();
@@ -63,11 +64,12 @@ public class frmStats extends javax.swing.JFrame {
 
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
         // TODO add your handling code here:
-	frmHub hub = new frmHub(getLocation());
+	frmHub hub = new frmHub(getLocation(), data);
 	
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
+    JSONObject data;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JTabbedPane tabStats;

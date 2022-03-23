@@ -4,26 +4,36 @@
  */
 package forms;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author hsavaryjackson
  */
-public class pnlWaste extends javax.swing.JComponent {
+public class pnlWaste extends javax.swing.JPanel {
 
+    public enum typeOfWaste {
+	RECYCLABLE,NON_RECYCLABLE
+    }
     /**
      * Creates new form pnlWaste
      */
-    public pnlWaste(String name, String iconPath, double kilo, ActionListener add, ActionListener remove)  {
+    public pnlWaste(String name, String iconPath, double kilo, frmWaste _form, typeOfWaste waste)  {
 	initComponents();
+	form = _form;
+	type = waste;
 	lblName.setText(name);
 	dKiloPerUnit = kilo;
 	ImageIcon img = new ImageIcon(iconPath);
 	lblIcon.setIcon(img);
-	btnAdd.addActionListener(add);
-	btnRemove.addActionListener(remove);
+	if (waste == typeOfWaste.RECYCLABLE){
+	    setBackground(new Color(153,255,153));
+	} else{
+	    setBackground(new Color(255,152,152));
+	}
 	updateUI();
     }
 
@@ -58,9 +68,14 @@ public class pnlWaste extends javax.swing.JComponent {
         lblName.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblName.setText("(NAME)");
         add(lblName);
-        lblName.setBounds(100, 10, 140, 60);
+        lblName.setBounds(100, 10, 290, 60);
 
         btnRemove.setText("REMOVE");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
         add(btnRemove);
         btnRemove.setBounds(140, 140, 100, 30);
 
@@ -80,7 +95,37 @@ public class pnlWaste extends javax.swing.JComponent {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+	switch(type){
+	    case RECYCLABLE:
+		form.dRecyclable += dKiloPerUnit;
+		System.out.println(form.dRecyclable);
+		break;
+	    case NON_RECYCLABLE:
+		form.dNonRecyclable += dKiloPerUnit;
+		System.out.println(form.dNonRecyclable);
+		break;
+	}
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+	switch(type){
+	    case RECYCLABLE:
+		form.dRecyclable -= dKiloPerUnit;
+		if(form.dRecyclable <0){
+		    form.dRecyclable = 0;
+		}
+		System.out.println(form.dRecyclable);
+		break;
+	    case NON_RECYCLABLE:
+		form.dNonRecyclable -= dKiloPerUnit;
+		if(form.dNonRecyclable <0){
+		    form.dNonRecyclable = 0;
+		}
+		System.out.println(form.dNonRecyclable);
+		break;
+	}
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -92,4 +137,6 @@ public class pnlWaste extends javax.swing.JComponent {
     private javax.swing.JSpinner spnAmount;
     // End of variables declaration//GEN-END:variables
     public double dKiloPerUnit;
+    public frmWaste form;
+    public typeOfWaste type;
 }
