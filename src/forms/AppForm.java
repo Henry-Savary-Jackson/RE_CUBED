@@ -1,30 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package forms;
 
+import com.google.gson.JsonObject;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
-import org.json.simple.JSONObject;
 import util.JSONUtils;
 
-/**
- *
- * @author hsavaryjackson
- */
 public class AppForm extends JFrame  implements WindowListener{
-    private JSONObject data; 
-    private String infoPath = "info.json";
+    JsonObject data; 
+    String infoPath = "info.json";
     
     
-    public AppForm(JSONObject obj){
+    public AppForm(JsonObject obj){
 	super();
 	data = obj;
+	addWindowListener(this);
     }
     
-    private void save(){}
+    void save(){}
     
     @Override
     public void windowOpened(WindowEvent e) {}

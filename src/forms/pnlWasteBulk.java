@@ -3,23 +3,15 @@ package forms;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class pnlWaste extends javax.swing.JPanel {
-
-    public static enum typeOfWaste {
-	RECYCLABLE,NON_RECYCLABLE
-    }
+public class pnlWasteBulk extends javax.swing.JPanel {
     /**
      * Creates new form pnlWaste
      */
-    public pnlWaste(String name, String iconPath, double kilo, frmWaste _form, typeOfWaste waste)  {
+    public pnlWasteBulk( frmWaste _form, pnlWaste.typeOfWaste waste)  {
 	initComponents();
 	form = _form;
 	type = waste;
-	lblName.setText(name);
-	dKiloPerUnit = kilo;
-	ImageIcon img = new ImageIcon(iconPath);
-	lblIcon.setIcon(img);
-	if (waste == typeOfWaste.RECYCLABLE){
+	if (waste == pnlWaste.typeOfWaste.RECYCLABLE){
 	    setBackground(new Color(153,255,153));
 	} else{
 	    setBackground(new Color(255,152,152));
@@ -37,28 +29,19 @@ public class pnlWaste extends javax.swing.JPanel {
     private void initComponents() {
 
         lblAmount = new javax.swing.JLabel();
-        lblIcon = new javax.swing.JLabel();
-        lblName = new javax.swing.JLabel();
         btnRemove = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        spnAmount = new javax.swing.JSpinner();
+        lblAmount1 = new javax.swing.JLabel();
+        txtWeight = new javax.swing.JTextField();
+        lblAmount2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(254, 188));
         setLayout(null);
 
         lblAmount.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
-        lblAmount.setText("Amount:");
+        lblAmount.setText("Kg");
         add(lblAmount);
-        lblAmount.setBounds(20, 90, 101, 32);
-
-        lblIcon.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        add(lblIcon);
-        lblIcon.setBounds(10, 10, 80, 70);
-
-        lblName.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
-        lblName.setText("(NAME)");
-        add(lblName);
-        lblName.setBounds(100, 10, 290, 60);
+        lblAmount.setBounds(230, 90, 40, 32);
 
         btnRemove.setText("REMOVE");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +50,7 @@ public class pnlWaste extends javax.swing.JPanel {
             }
         });
         add(btnRemove);
-        btnRemove.setBounds(140, 140, 100, 30);
+        btnRemove.setBounds(150, 140, 100, 30);
 
         btnAdd.setText("ADD");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -78,15 +61,30 @@ public class pnlWaste extends javax.swing.JPanel {
         add(btnAdd);
         btnAdd.setBounds(20, 140, 100, 30);
 
-        spnAmount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        add(spnAmount);
-        spnAmount.setBounds(144, 100, 80, 23);
+        lblAmount1.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount1.setText("Add or remove in bulk:");
+        add(lblAmount1);
+        lblAmount1.setBounds(10, 40, 270, 32);
+
+        txtWeight.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        add(txtWeight);
+        txtWeight.setBounds(120, 100, 100, 24);
+
+        lblAmount2.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount2.setText("Weight:");
+        add(lblAmount2);
+        lblAmount2.setBounds(10, 90, 101, 32);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-	double amount = (Integer)spnAmount.getValue();
-	double weight = amount * dKiloPerUnit;
+	double weight = 0;
+	try{
+	    weight = Double.parseDouble(txtWeight.getText());
+	} catch(NumberFormatException nfe){
+	    System.out.println("Please enter valid input");
+	    return;
+	}
 	switch(type){
 	    case RECYCLABLE:
 		form.dRecyclable += weight;
@@ -103,8 +101,13 @@ public class pnlWaste extends javax.swing.JPanel {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-	double amount = (Integer)spnAmount.getValue();
-	double weight = amount * dKiloPerUnit;
+	double weight = 0;
+	try{
+	    weight = Double.parseDouble(txtWeight.getText());
+	} catch(NumberFormatException nfe){
+	    System.out.println("Please enter valid input");
+	    return;
+	}
 	switch(type){
 	    case RECYCLABLE:
 		form.dRecyclable -= weight;
@@ -132,11 +135,10 @@ public class pnlWaste extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
     private javax.swing.JLabel lblAmount;
-    private javax.swing.JLabel lblIcon;
-    private javax.swing.JLabel lblName;
-    private javax.swing.JSpinner spnAmount;
+    private javax.swing.JLabel lblAmount1;
+    private javax.swing.JLabel lblAmount2;
+    private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
-    public double dKiloPerUnit;
     public frmWaste form;
-    public typeOfWaste type;
+    public pnlWaste.typeOfWaste type;
 }

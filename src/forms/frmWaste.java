@@ -1,42 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
+import com.google.gson.JsonObject;
 import java.awt.Point;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import org.json.simple.JSONObject;
-import util.JSONUtils;
 
 /**
  *
  * @author hsavaryjackson
  */
-public class frmWaste extends javax.swing.JFrame implements WindowListener {
+public class frmWaste extends AppForm {
 
     /**
      * Creates new form inpForm
      */
-    public frmWaste(Point location, JSONObject _data) {
-	
+    public frmWaste(Point location, JsonObject _data) {
+	super(_data);
 	initComponents();
 	
-	data = _data;
+	JsonObject waste = data.getAsJsonObject("WASTE");
+	JsonObject month = waste.getAsJsonObject("2022 APRIL") ;
 	
-	dRecyclable = (double)((JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL")).get("totat_recyclable");
-	dNonRecyclable = (double)((JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL")).get("totat_non_recyclable");
+	dRecyclable = month.getAsJsonPrimitive("total_recyclable").getAsDouble();
+	dNonRecyclable = month.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
+	dTotalRecyclable =  waste.getAsJsonPrimitive("total_recyclable").getAsDouble();
+	dTotalNonRecyclable = waste.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
 	
 	setLocation(location);
 	
 	JPanel pnlRecyclable = new JPanel();
 	JPanel pnlNonRecyclable = new JPanel();
-	
 	
 	pnlRecyclable.setLayout(new BoxLayout(pnlRecyclable,BoxLayout.Y_AXIS));
 	pnlNonRecyclable.setLayout(new BoxLayout(pnlNonRecyclable,BoxLayout.Y_AXIS));
@@ -44,12 +38,14 @@ public class frmWaste extends javax.swing.JFrame implements WindowListener {
 	JScrollPane scrlRecyclable = new JScrollPane(pnlRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	JScrollPane scrlNonRecyclable = new JScrollPane(pnlNonRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	
+	pnlNonRecyclable.add(new pnlWasteBulk(this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	pnlNonRecyclable.add(new pnlWaste("sandwich boxes","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	pnlNonRecyclable.add(new pnlWaste("chip bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	pnlNonRecyclable.add(new pnlWaste("salad tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	pnlNonRecyclable.add(new pnlWaste("raisin bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	pnlNonRecyclable.add(new pnlWaste("sippy bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
 	
+	pnlRecyclable.add(new pnlWasteBulk(this,pnlWaste.typeOfWaste.RECYCLABLE));
 	pnlRecyclable.add(new pnlWaste("yoghurt tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
 	pnlRecyclable.add(new pnlWaste("plastic water bottles","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
 	pnlRecyclable.add(new pnlWaste("bread bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
@@ -102,33 +98,23 @@ public class frmWaste extends javax.swing.JFrame implements WindowListener {
 
     public double dRecyclable;
     public double dNonRecyclable;
-    JSONObject data;
+    public double dTotalRecyclable;
+    public double dTotalNonRecyclable;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JTabbedPane tabWaste;
     // End of variables declaration//GEN-END:variables
 
+    @Override
     void save(){
-	JSONObject month = (JSONObject)((JSONObject)data.get("WASTE")).get("2022 APRIL");
-	month.put("totat_recyclable", dRecyclable);
-	month.put("totat_non_recyclable", dNonRecyclable);
-	((JSONObject)data.get("WASTE")).put("2022 APRIl", month);
+	
+	JsonObject waste = data.getAsJsonObject("WASTE");
+	JsonObject month = waste.getAsJsonObject("2022 APRIL") ;
+	
+	month.addProperty("total_recyclable", dRecyclable);
+	month.addProperty("total_non_recyclable", dNonRecyclable);
+	waste.addProperty("total_recyclable",dTotalRecyclable);
+	waste.addProperty("total_non_recyclable",dTotalNonRecyclable);
     }
-    @Override
-    public void windowOpened(WindowEvent e) {}
-    @Override
-    public void windowClosing(WindowEvent e) {
-	save();
-	JSONUtils.writeJSON("info.json", data);
-    }
-    @Override
-    public void windowClosed(WindowEvent e) {}
-    @Override
-    public void windowIconified(WindowEvent e) {}
-    @Override
-    public void windowDeiconified(WindowEvent e) {}
-    @Override
-    public void windowActivated(WindowEvent e) {}
-    @Override
-    public void windowDeactivated(WindowEvent e) {}
+   
 }

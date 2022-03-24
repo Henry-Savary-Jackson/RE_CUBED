@@ -4,37 +4,42 @@
  */
 package util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 
 public class JSONUtils {
-    public static JSONObject readJSON(String filePath){
-	try {
-	    Scanner scanner = new Scanner(new File(filePath));
-	    String JSONString = scanner.useDelimiter("\\\\Z").next();
-	    scanner.close();
-	    JSONParser parser = new JSONParser();
-	    return (JSONObject) parser.parse(JSONString);
+    
+    private static GsonBuilder builder = new GsonBuilder();
+    
+    public static JsonObject readJSON(String filePath){
+	try (BufferedReader bfr = new BufferedReader(new FileReader(new File(filePath)))){
+	    JsonObject obj = builder.create().fromJson(bfr, JsonObject.class);
+	    bfr.close();
+	    return obj;
 	} catch (FileNotFoundException ex) {
 	    Logger.getLogger(JSONUtils.class.getName()).log(Level.SEVERE, null, ex);
-	} catch (ParseException ex) {
+	} catch (IOException ex) {
 	    Logger.getLogger(JSONUtils.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return null;
     }
     
-    public static void writeJSON(String filePath, JSONObject obj) {
-	try (FileWriter fw = new FileWriter(filePath)){
-	    fw.write(obj.toJSONString());
-	    fw.flush();
+    public static void writeJSON(String filePath, JsonObject obj) {
+	try (BufferedWriter bfw = new BufferedWriter(new FileWriter(new File(filePath)))){
+	    Gson gson = builder.setPrettyPrinting().create();
+	    bfw.write(gson.toJson(obj));
+	    
+	    bfw.close();
 	} catch (IOException ioe){}
 	    
     }

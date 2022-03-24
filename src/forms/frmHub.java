@@ -1,33 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
+import com.google.gson.JsonObject;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import org.json.simple.JSONObject;
 
-/**
- *
- * @author hsavaryjackson
- */
-public class frmHub extends javax.swing.JFrame {
+public class frmHub extends AppForm {
 
     /**
      * Creates new form hubForm
      */
-    public frmHub(Point location, JSONObject _data) {
+    public frmHub(Point location, JsonObject _data) {
+	super(_data);
 	initComponents();
-	data = _data;
 	try {
 	    Image logo= ImageIO.read(new File("src/images/re_cubed_logo_bg.png")).getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
 	    lblLogo.setIcon(new ImageIcon(logo));
@@ -36,8 +27,21 @@ public class frmHub extends javax.swing.JFrame {
 	} catch (IOException ex) {
 	    Logger.getLogger(frmHub.class.getName()).log(Level.SEVERE, null, ex);
 	}
-	repaint();
+	
 	setLocation(location);
+	
+	JsonObject waste = data.getAsJsonObject("WASTE");
+	
+	dTotalRecycle = waste.getAsJsonPrimitive("total_recyclable").getAsDouble();
+	lblTotalRecyclable.setText("RECYCLABLE: "+ String.valueOf(dTotalRecycle)+" KG");
+	dTotalNonRecycle = waste.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
+	lblTotalNonRecyclable.setText("NON-RECYCLABLE: "+ String.valueOf(dTotalNonRecycle)+" KG");
+	dTotal = dTotalNonRecycle + dTotalRecycle;
+	lblTotal.setText("TOTAL SAVED: " + String.valueOf(dTotal)+ " KG" );
+	
+	dTotalReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
+	lblTotalReuse.setText("TOTAL SAVED: "+ String.valueOf(dTotalReuse)+" KG");  
+	repaint();
 	setVisible(true);
     }
 
@@ -54,10 +58,10 @@ public class frmHub extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnProgress = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblTotalReuse = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblTotalRecyclable = new javax.swing.JLabel();
+        lblTotalNonRecyclable = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnReduce = new javax.swing.JButton();
@@ -101,17 +105,17 @@ public class frmHub extends javax.swing.JFrame {
             .addGap(0, 134, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
-        jLabel1.setText("TOTAL SAVED: KG");
+        lblTotalReuse.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        lblTotalReuse.setText("TOTAL SAVED: KG");
 
-        jLabel3.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
-        jLabel3.setText("TOTAL WASTE: KG");
+        lblTotal.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        lblTotal.setText("TOTAL WASTE: KG");
 
-        jLabel5.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
-        jLabel5.setText("RECYCLABLE: KG");
+        lblTotalRecyclable.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        lblTotalRecyclable.setText("RECYCLABLE: KG");
 
-        jLabel6.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
-        jLabel6.setText("NON-RECYCLABLE: KG");
+        lblTotalNonRecyclable.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        lblTotalNonRecyclable.setText("NON-RECYCLABLE: KG");
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
 
@@ -156,16 +160,16 @@ public class frmHub extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTotalReuse, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel3)
+                                .addComponent(lblTotalRecyclable))
+                            .addComponent(lblTotal)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(jLabel6)))))
+                                .addComponent(lblTotalNonRecyclable)))))
                 .addContainerGap())
         );
         pnlStatsLayout.setVerticalGroup(
@@ -178,21 +182,21 @@ public class frmHub extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(btnProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
-                        .addComponent(jLabel3)
+                        .addComponent(lblTotal)
                         .addGap(16, 16, 16)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
+                            .addComponent(lblTotalRecyclable))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6))
+                            .addComponent(lblTotalNonRecyclable))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblTotalReuse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -261,21 +265,24 @@ public class frmHub extends javax.swing.JFrame {
 	dispose();
     }//GEN-LAST:event_btnReduceActionPerformed
 
-    JSONObject data ;
+    double dTotalRecycle;
+    double dTotalNonRecycle;
+    double dTotalReuse;
+    double dTotal;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProgress;
     private javax.swing.JButton btnReduce;
     private javax.swing.JButton btnWaste;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalNonRecyclable;
+    private javax.swing.JLabel lblTotalRecyclable;
+    private javax.swing.JLabel lblTotalReuse;
     private javax.swing.JPanel pnlStats;
     // End of variables declaration//GEN-END:variables
 }

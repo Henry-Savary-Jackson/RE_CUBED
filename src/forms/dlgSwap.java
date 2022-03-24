@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
 import java.awt.Point;
 
-/**
- *
- * @author hsavaryjackson
- */
 public class dlgSwap extends javax.swing.JDialog {
 
     /**

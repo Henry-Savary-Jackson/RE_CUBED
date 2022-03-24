@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
+import com.google.gson.JsonObject;
 import java.awt.Point;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import org.json.simple.JSONObject;
 
-/**
- *
- * @author hsavaryjackson
- */
-public class frmStats extends javax.swing.JFrame {
+public class frmStats extends AppForm{
 
     /**
      * Creates new form inpForm
      */
-    public frmStats(Point location,JSONObject _data) {
+    public frmStats(Point location,JsonObject _data) {
+	super(_data);
 	initComponents();
 	setLocation(location);
 	JPanel pnlWaste = new JPanel();
@@ -69,7 +61,6 @@ public class frmStats extends javax.swing.JFrame {
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
-    JSONObject data;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JTabbedPane tabStats;

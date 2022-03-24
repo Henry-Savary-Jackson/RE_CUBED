@@ -1,30 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
+import com.google.gson.JsonObject;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import org.json.simple.JSONObject;
+import util.ReuseSwap;
 
-/**
- *
- * @author hsavaryjackson
- */
-public class frmReduce extends javax.swing.JFrame {
+public class frmReduce extends AppForm {
 
     /**
      * Creates new form inpForm
      */
-    public frmReduce(Point location, JSONObject _data) {
+    public frmReduce(Point location, JsonObject _data) {
+	super(_data);
 	initComponents();
 	try {
 	    Image logo= ImageIO.read(new File("src/images/add_image.png")).getScaledInstance(btnNew.getWidth()-10, btnNew.getHeight()-10, Image.SCALE_SMOOTH);
@@ -143,8 +138,8 @@ public class frmReduce extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRecordActionPerformed
 
-    JSONObject data;
     public double dReuse;
+    ArrayList<ReuseSwap> swaps = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
     private javax.swing.JButton btnNew;
