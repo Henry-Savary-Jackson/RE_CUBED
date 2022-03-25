@@ -1,6 +1,9 @@
 package forms;
 
 import com.google.gson.JsonObject;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
@@ -39,9 +42,10 @@ public class frmHub extends AppForm {
 	dTotal = dTotalNonRecycle + dTotalRecycle;
 	lblTotal.setText("TOTAL SAVED: " + String.valueOf(dTotal)+ " KG" );
 	
+	pnlChart.set(dTotal, new double[]{dTotalRecycle,dTotalNonRecycle}, new Color[]{pnlRecycleColour.getBackground(), pnlNonRecycleColour.getBackground()});
+	
 	dTotalReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
 	lblTotalReuse.setText("TOTAL SAVED: "+ String.valueOf(dTotalReuse)+" KG");  
-	repaint();
 	setVisible(true);
     }
 
@@ -54,20 +58,32 @@ public class frmHub extends AppForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pieChart1 = new util.PieChart();
         pnlStats = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnProgress = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         lblTotalReuse = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         lblTotalRecyclable = new javax.swing.JLabel();
         lblTotalNonRecyclable = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        pnlRecycleColour = new javax.swing.JPanel();
+        pnlNonRecycleColour = new javax.swing.JPanel();
+        pnlChart = new util.PieChart();
         btnReduce = new javax.swing.JButton();
         btnWaste = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout pieChart1Layout = new javax.swing.GroupLayout(pieChart1);
+        pieChart1.setLayout(pieChart1Layout);
+        pieChart1Layout.setHorizontalGroup(
+            pieChart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        pieChart1Layout.setVerticalGroup(
+            pieChart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MAIN");
@@ -91,20 +107,6 @@ public class frmHub extends AppForm {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-
         lblTotalReuse.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
         lblTotalReuse.setText("TOTAL SAVED: KG");
 
@@ -117,30 +119,43 @@ public class frmHub extends AppForm {
         lblTotalNonRecyclable.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
         lblTotalNonRecyclable.setText("NON-RECYCLABLE: KG");
 
-        jPanel2.setBackground(new java.awt.Color(153, 255, 153));
+        pnlRecycleColour.setBackground(new java.awt.Color(153, 255, 153));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlRecycleColourLayout = new javax.swing.GroupLayout(pnlRecycleColour);
+        pnlRecycleColour.setLayout(pnlRecycleColourLayout);
+        pnlRecycleColourLayout.setHorizontalGroup(
+            pnlRecycleColourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 20, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlRecycleColourLayout.setVerticalGroup(
+            pnlRecycleColourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 102));
+        pnlNonRecycleColour.setBackground(new java.awt.Color(255, 102, 102));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlNonRecycleColourLayout = new javax.swing.GroupLayout(pnlNonRecycleColour);
+        pnlNonRecycleColour.setLayout(pnlNonRecycleColourLayout);
+        pnlNonRecycleColourLayout.setHorizontalGroup(
+            pnlNonRecycleColourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 20, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlNonRecycleColourLayout.setVerticalGroup(
+            pnlNonRecycleColourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        pnlChart.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
+        pnlChart.setLayout(pnlChartLayout);
+        pnlChartLayout.setHorizontalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 137, Short.MAX_VALUE)
+        );
+        pnlChartLayout.setVerticalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlStatsLayout = new javax.swing.GroupLayout(pnlStats);
@@ -156,18 +171,18 @@ public class frmHub extends AppForm {
                         .addGap(114, 114, 114)
                         .addComponent(btnProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlStatsLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTotalReuse, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pnlRecycleColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
                                 .addComponent(lblTotalRecyclable))
                             .addComponent(lblTotal)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pnlNonRecycleColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(lblTotalNonRecyclable)))))
                 .addContainerGap())
@@ -175,29 +190,29 @@ public class frmHub extends AppForm {
         pnlStatsLayout.setVerticalGroup(
             pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStatsLayout.createSequentialGroup()
-                .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlStatsLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
                         .addComponent(lblTotal)
                         .addGap(16, 16, 16)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addGap(3, 3, 3)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pnlRecycleColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblTotalRecyclable))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pnlNonRecycleColour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblTotalNonRecyclable))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTotalReuse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addGap(25, 25, 25)
+                        .addComponent(lblTotalReuse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlStats);
@@ -275,14 +290,15 @@ public class frmHub extends AppForm {
     private javax.swing.JButton btnWaste;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTotalNonRecyclable;
     private javax.swing.JLabel lblTotalRecyclable;
     private javax.swing.JLabel lblTotalReuse;
+    private util.PieChart pieChart1;
+    private util.PieChart pnlChart;
+    private javax.swing.JPanel pnlNonRecycleColour;
+    private javax.swing.JPanel pnlRecycleColour;
     private javax.swing.JPanel pnlStats;
     // End of variables declaration//GEN-END:variables
 }

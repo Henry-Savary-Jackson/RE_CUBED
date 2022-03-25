@@ -18,5 +18,9 @@ public class ReuseSwap {
 	dRatio = ratio;
 	dWeight = weight;
     }
+    
+    public String toString(){
+	return nameRecyclable + " " + nameNonRecyclable + "  " + String.valueOf(dRatio) + " " +String.valueOf(dWeight);
+    }
 	   
 }

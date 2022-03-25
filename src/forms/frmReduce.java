@@ -1,8 +1,12 @@
 package forms;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -29,7 +33,16 @@ public class frmReduce extends AppForm {
 	} catch (IOException ex) {
 	    Logger.getLogger(frmHub.class.getName()).log(Level.SEVERE, null, ex);
 	}
+	
 	setLocation(location);
+	
+	dReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
+	
+	JsonArray jsonArr = data.getAsJsonArray("SWAPS");
+	for (JsonElement e : jsonArr){
+	    swaps.add(new GsonBuilder().create().fromJson(e, ReuseSwap.class));
+	    cmbItems.addItem(e.getAsJsonObject().getAsJsonPrimitive("nameRecyclable").getAsString());
+	}
 	
 	setVisible(true);
     }
@@ -50,7 +63,7 @@ public class frmReduce extends AppForm {
         spinAmount = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         btnNew = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblNonRecycle = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnRecord = new javax.swing.JButton();
 
@@ -77,12 +90,21 @@ public class frmReduce extends AppForm {
         jLabel1.setBounds(104, 93, 62, 38);
 
         cmbItems.setFont(new java.awt.Font("Futura", 0, 22)); // NOI18N
-        cmbItems.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbItems.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbItemsItemStateChanged(evt);
+            }
+        });
         getContentPane().add(cmbItems);
         cmbItems.setBounds(114, 145, 173, 29);
 
         spinAmount.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         spinAmount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spinAmount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                spinAmountPropertyChange(evt);
+            }
+        });
         getContentPane().add(spinAmount);
         spinAmount.setBounds(184, 93, 85, 31);
 
@@ -99,10 +121,10 @@ public class frmReduce extends AppForm {
         getContentPane().add(btnNew);
         btnNew.setBounds(134, 506, 117, 114);
 
-        jLabel3.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
-        jLabel3.setText("(AMOUNT) (ITEM)");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(91, 242, 222, 32);
+        lblNonRecycle.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblNonRecycle.setText("(AMOUNT) (ITEM)");
+        getContentPane().add(lblNonRecycle);
+        lblNonRecycle.setBounds(91, 242, 222, 32);
 
         jLabel4.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         jLabel4.setText("You saved () Kg!");
@@ -136,9 +158,32 @@ public class frmReduce extends AppForm {
 
     private void btnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordActionPerformed
         // TODO add your handling code here:
+	int index;
     }//GEN-LAST:event_btnRecordActionPerformed
 
+    private void cmbItemsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItemsItemStateChanged
+        // TODO add your handling code here:
+	if (evt.getStateChange() == ItemEvent.SELECTED){ 
+	    int index = cmbItems.getSelectedIndex();
+	    updateLabel(index);
+	}
+    }//GEN-LAST:event_cmbItemsItemStateChanged
+
+    private void spinAmountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spinAmountPropertyChange
+        // TODO add your handling code here:
+	
+    }//GEN-LAST:event_spinAmountPropertyChange
+
+    private void updateLabel(int index){
+	ReuseSwap currSwap = swaps.get(index);
+	amount = (Integer)spinAmount.getValue();
+	double dAmount = amount * currSwap.dRatio;
+	lblNonRecycle.setText(String.valueOf(dAmount) + " " + currSwap.nameNonRecyclable);
+    }
+    
     public double dReuse;
+    int amount ;
+    
     ArrayList<ReuseSwap> swaps = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
@@ -148,8 +193,8 @@ public class frmReduce extends AppForm {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblNonRecycle;
     private javax.swing.JSpinner spinAmount;
     // End of variables declaration//GEN-END:variables
     
