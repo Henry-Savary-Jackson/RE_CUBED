@@ -1,6 +1,7 @@
 package forms;
 
 import java.awt.Point;
+import util.ReuseSwap;
 
 public class dlgSwap extends javax.swing.JDialog {
 
@@ -31,11 +32,11 @@ public class dlgSwap extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtReusable = new javax.swing.JTextField();
+        txtAmntNonReusable = new javax.swing.JTextField();
+        txtAmntReusable = new javax.swing.JTextField();
+        txtWeight = new javax.swing.JTextField();
+        txtNonReusable = new javax.swing.JTextField();
         btnDone = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
@@ -61,7 +62,7 @@ public class dlgSwap extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Futura", 0, 20)); // NOI18N
         jLabel3.setText("Instead of");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 110, 89, 27);
+        jLabel3.setBounds(150, 130, 89, 27);
 
         jLabel4.setFont(new java.awt.Font("Futura", 0, 20)); // NOI18N
         jLabel4.setText("Non-reusable item name:");
@@ -82,28 +83,16 @@ public class dlgSwap extends javax.swing.JDialog {
         jLabel7.setText("Kg");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(310, 260, 25, 27);
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(235, 41, 180, 23);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(140, 220, 106, 23);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(149, 81, 106, 23);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(180, 260, 114, 23);
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(240, 180, 177, 23);
+        getContentPane().add(txtReusable);
+        txtReusable.setBounds(235, 41, 180, 23);
+        getContentPane().add(txtAmntNonReusable);
+        txtAmntNonReusable.setBounds(140, 220, 106, 23);
+        getContentPane().add(txtAmntReusable);
+        txtAmntReusable.setBounds(149, 81, 106, 23);
+        getContentPane().add(txtWeight);
+        txtWeight.setBounds(180, 260, 114, 23);
+        getContentPane().add(txtNonReusable);
+        txtNonReusable.setBounds(240, 180, 177, 23);
 
         btnDone.setFont(new java.awt.Font("Futura", 0, 21)); // NOI18N
         btnDone.setText("DONE");
@@ -118,16 +107,25 @@ public class dlgSwap extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
     private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoneActionPerformed
         // TODO add your handling code here:
+	sReusableName =  txtReusable.getText();
+	sNonReusableName = txtNonReusable.getText();
+	
+	if (sReusableName.isEmpty() || sNonReusableName.isEmpty()){
+	    return;
+	}
+	
+	try{
+	    dReusableAmount = Double.parseDouble(txtAmntReusable.getText());
+	    dNonReusableAmount = Double.parseDouble(txtAmntNonReusable.getText());
+	    dNonReusableWeight = Double.parseDouble(txtWeight.getText());
+	    
+	} catch (NumberFormatException nfe) {
+	    System.out.println(nfe.getMessage());
+	    return;
+	}
+	form.swaps.add(new ReuseSwap(sReusableName,sNonReusableName,(dNonReusableAmount/dReusableAmount), dNonReusableWeight/dNonReusableAmount));
 	
 	dispose();
     }//GEN-LAST:event_btnDoneActionPerformed
@@ -144,11 +142,11 @@ public class dlgSwap extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtAmntNonReusable;
+    private javax.swing.JTextField txtAmntReusable;
+    private javax.swing.JTextField txtNonReusable;
+    private javax.swing.JTextField txtReusable;
+    private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
     String sReusableName;
     String sNonReusableName;

@@ -36,16 +36,16 @@ public class frmHub extends AppForm {
 	JsonObject waste = data.getAsJsonObject("WASTE");
 	
 	dTotalRecycle = waste.getAsJsonPrimitive("total_recyclable").getAsDouble();
-	lblTotalRecyclable.setText("RECYCLABLE: "+ String.valueOf(dTotalRecycle)+" KG");
+	lblTotalRecyclable.setText(String.format("RECYCLABLE: %.2f KG", dTotalRecycle));
 	dTotalNonRecycle = waste.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
-	lblTotalNonRecyclable.setText("NON-RECYCLABLE: "+ String.valueOf(dTotalNonRecycle)+" KG");
+	lblTotalNonRecyclable.setText(String.format("NON-RECYCLABLE: %.2f KG",dTotalNonRecycle));
 	dTotal = dTotalNonRecycle + dTotalRecycle;
-	lblTotal.setText("TOTAL SAVED: " + String.valueOf(dTotal)+ " KG" );
+	lblTotal.setText(String.format("TOTAL WASTE: %.2f KG" , dTotal));
 	
 	pnlChart.set(dTotal, new double[]{dTotalRecycle,dTotalNonRecycle}, new Color[]{pnlRecycleColour.getBackground(), pnlNonRecycleColour.getBackground()});
 	
 	dTotalReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
-	lblTotalReuse.setText("TOTAL SAVED: "+ String.valueOf(dTotalReuse)+" KG");  
+	lblTotalReuse.setText(String.format("TOTAL SAVED: %.2f KG", dTotalReuse));  
 	setVisible(true);
     }
 
@@ -216,7 +216,7 @@ public class frmHub extends AppForm {
         );
 
         getContentPane().add(pnlStats);
-        pnlStats.setBounds(10, 210, 390, 310);
+        pnlStats.setBounds(10, 210, 400, 310);
 
         btnReduce.setFont(new java.awt.Font("Futura", 0, 36)); // NOI18N
         btnReduce.setText("Enter reductions");

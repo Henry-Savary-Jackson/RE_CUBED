@@ -69,7 +69,7 @@ public class frmWaste extends AppForm {
 
         btnHub = new javax.swing.JButton();
         tabWaste = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Your waste");
@@ -88,15 +88,15 @@ public class frmWaste extends AppForm {
         getContentPane().add(tabWaste);
         tabWaste.setBounds(21, 53, 383, 693);
 
-        jButton1.setFont(new java.awt.Font("Futura", 0, 22)); // NOI18N
-        jButton1.setText("?");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnInfo.setFont(new java.awt.Font("Futura", 0, 22)); // NOI18N
+        btnInfo.setText("?");
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInfoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(350, 16, 50, 30);
+        getContentPane().add(btnInfo);
+        btnInfo.setBounds(350, 16, 50, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -107,12 +107,12 @@ public class frmWaste extends AppForm {
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         // TODO add your handling code here:
 	new frmInfo(getLocation(),data);
 	
 	dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnInfoActionPerformed
 
     public double dRecyclable;
     public double dNonRecyclable;
@@ -120,7 +120,7 @@ public class frmWaste extends AppForm {
     public double dTotalNonRecyclable;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JTabbedPane tabWaste;
     // End of variables declaration//GEN-END:variables
 
