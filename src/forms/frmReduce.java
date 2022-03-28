@@ -52,7 +52,7 @@ public class frmReduce extends AppForm {
 	setLocation(location);
 	
 	dTotalReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
-	dReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("2022 APRIL").getAsDouble();
+	dReuse = data.getAsJsonObject("REUSE").getAsJsonObject("2022 APR").getAsJsonPrimitive("total").getAsDouble();
 	
 	JsonArray jsonArr = data.getAsJsonArray("SWAPS");
 	for (JsonElement e : jsonArr){
@@ -226,9 +226,10 @@ public class frmReduce extends AppForm {
     @Override
     public void save(){
 	JsonObject reuse = data.getAsJsonObject("REUSE");
+	JsonObject month = reuse.getAsJsonObject("2022 APR");
 	JsonArray jsonSwaps = data.getAsJsonArray("SWAPS");
 	reuse.addProperty("total", dTotalReuse);
-	reuse.addProperty("2022 APRIL", dReuse);
+	month.addProperty("total", dReuse);
 	for (ReuseSwap re : swaps){
 	    Gson gson = new GsonBuilder().create();
 	    JsonElement e = gson.toJsonTree(re) ;

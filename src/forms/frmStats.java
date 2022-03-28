@@ -1,23 +1,102 @@
 package forms;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.awt.Point;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.swing.JPanel;
+import util.BarGraphPanel;
+import util.BarGraphInfo;
 
 public class frmStats extends AppForm{
-
-    /**
-     * Creates new form inpForm
-     */
+    
+    boolean bothMode = true;
+    
+    private int monthOrder (String s){
+	switch (s){
+	    case "JAN":
+		return 1;
+	    case "FEB":
+		return 2;
+	    case "MAR":
+		return 3;
+	    case "APR":
+		return 4;
+	    case "MAY":
+		return 5;
+	    case "JUN":
+		return 6;
+	    case "JUL":
+		return 7;
+	    case "AUG":
+		return 8;
+	    case "SEP":
+		return 9;
+	    case "OCT":
+		return 10;
+	    case "NOV":
+		return 11;
+	    case "DEC":
+		return 12;
+	}
+	return -1;
+    }
+    
+    Comparator<Entry<String,JsonElement>> dateOrderer  = (Entry<String, JsonElement> o1, Entry<String, JsonElement> o2) -> {
+	    String date1 = o1.getKey();
+	    String date2 = o2.getKey();
+	    int year1 = Integer.parseInt(date1.substring(0,date1.indexOf(' ')));
+	    int year2 = Integer.parseInt(date2.substring(0,date2.indexOf(' ')));
+	    if (year1 == year2){
+		String month1 = date1.substring(date1.indexOf(' ')+1);
+		String month2 = date2.substring(date1.indexOf(' ')+1);
+		int month1Index = monthOrder(month1);
+		int month2Index = monthOrder(month2);
+		
+		if (month1Index == month2Index){
+		    return 0;
+		} else if (month1Index > month2Index){
+		    return 1;
+		} else {
+		    return -1;
+		}
+	    } else if (year1 > year2){
+		return 1;
+	    } else{
+		return -1;
+	    }
+	};
+    
     public frmStats(Point location,JsonObject _data) {
 	super(_data);
 	initComponents();
 	setLocation(location);
-	JPanel pnlWaste = new JPanel();
-	JPanel pnlReuse = new JPanel();
+	
+	BarGraphPanel pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"},true);
+	BarGraphPanel pnlReuse = getBarGraphPanel(data.getAsJsonObject("REUSE"),new String[]{"total"},"Waste Saved", "Month", "Weight(Kg)",new String[]{"total"}, false);
 	tabStats.addTab("Waste", pnlWaste );
 	tabStats.addTab("Reuse", pnlReuse);
 	setVisible(true);
+    }
+    
+    private BarGraphPanel getBarGraphPanel(JsonObject obj, String[] ignore,String title, String xAxis, String yAxis, String[] properties, boolean Legend){
+	Set<Entry<String,JsonElement>> wasteSet = new HashSet<>(); 
+	wasteSet.addAll(obj.entrySet());
+	
+	wasteSet.removeIf((Entry<String, JsonElement> t) -> Arrays.asList(ignore).contains(t.getKey()));
+	
+	SortedSet<Entry<String,JsonElement>> sortedSet = new TreeSet<>(dateOrderer);
+	sortedSet.addAll(wasteSet);
+	
+	return new BarGraphPanel(new BarGraphInfo(title, xAxis, yAxis, sortedSet, properties, Legend));
     }
 
     /**
@@ -31,6 +110,7 @@ public class frmStats extends AppForm{
 
         btnHub = new javax.swing.JButton();
         tabStats = new javax.swing.JTabbedPane();
+        btnMode = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Your statistics");
@@ -49,7 +129,16 @@ public class frmStats extends AppForm{
 
         tabStats.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         getContentPane().add(tabStats);
-        tabStats.setBounds(0, 47, 415, 699);
+        tabStats.setBounds(10, 50, 410, 699);
+
+        btnMode.setText("Mode:");
+        btnMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMode);
+        btnMode.setBounds(180, 20, 80, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -61,8 +150,19 @@ public class frmStats extends AppForm{
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
+    private void btnModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModeActionPerformed
+        // TODO add your handling code here:
+	bothMode = !bothMode;
+	if (bothMode){
+	    btnMode.setText("Mode: both");
+	} else {
+	    btnMode.setText("Mode: total");
+	}
+    }//GEN-LAST:event_btnModeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHub;
+    private javax.swing.JButton btnMode;
     private javax.swing.JTabbedPane tabStats;
     // End of variables declaration//GEN-END:variables
 }

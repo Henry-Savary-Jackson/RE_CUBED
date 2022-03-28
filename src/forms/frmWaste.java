@@ -20,7 +20,7 @@ public class frmWaste extends AppForm {
 	initComponents();
 	
 	JsonObject waste = data.getAsJsonObject("WASTE");
-	JsonObject month = waste.getAsJsonObject("2022 APRIL") ;
+	JsonObject month = waste.getAsJsonObject("2022 APR") ;
 	
 	dRecyclable = month.getAsJsonPrimitive("total_recyclable").getAsDouble();
 	dNonRecyclable = month.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
@@ -128,10 +128,11 @@ public class frmWaste extends AppForm {
     void save(){
 	
 	JsonObject waste = data.getAsJsonObject("WASTE");
-	JsonObject month = waste.getAsJsonObject("2022 APRIL") ;
+	JsonObject month = waste.getAsJsonObject("2022 APR") ;
 	
 	month.addProperty("total_recyclable", dRecyclable);
 	month.addProperty("total_non_recyclable", dNonRecyclable);
+	month.addProperty("total", dRecyclable + dNonRecyclable);
 	waste.addProperty("total_recyclable",dTotalRecyclable);
 	waste.addProperty("total_non_recyclable",dTotalNonRecyclable);
     }
