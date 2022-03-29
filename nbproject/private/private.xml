@@ -4,14 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmInfo.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/main/main.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmWaste.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmHub.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/images/add_image.png</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/info/info.json</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/AppForm.java</file>
             <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/images/re_cubed_logo_bg.png</file>
             <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmReduce.java</file>
-            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmWaste.java</file>
             <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/dlgSwap.java</file>
-            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmHub.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/util/BarGraphInfo.java</file>
             <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/frmStats.java</file>
-            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/images/add_image.png</file>
-            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/forms/AppForm.java</file>
+            <file>file:/Users/hsavaryjackson/NetBeansProjects/RE_CUBED/src/util/JSONUtils.java</file>
         </group>
     </open-files>
 </project-private>
