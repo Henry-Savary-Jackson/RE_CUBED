@@ -4,21 +4,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.awt.Point;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import javax.swing.JPanel;
 import util.BarGraphPanel;
 import util.BarGraphInfo;
 
 public class frmStats extends AppForm{
     
     boolean bothMode = true;
+    BarGraphPanel pnlWaste;
+    BarGraphPanel pnlReuse;
     
     private int monthOrder (String s){
 	switch (s){
@@ -75,19 +74,19 @@ public class frmStats extends AppForm{
 	    }
 	};
     
-    public frmStats(Point location,JsonObject _data) {
-	super(_data);
+    public frmStats(Point location,JsonObject _data, String infoPath) {
+	super(_data, infoPath);
 	initComponents();
 	setLocation(location);
 	
-	BarGraphPanel pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"},true);
-	BarGraphPanel pnlReuse = getBarGraphPanel(data.getAsJsonObject("REUSE"),new String[]{"total"},"Waste Saved", "Month", "Weight(Kg)",new String[]{"total"}, false);
+	pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
+	pnlReuse = getBarGraphPanel(data.getAsJsonObject("REUSE"),new String[]{"total"},"Waste Saved", "Month", "Weight(Kg)",new String[]{"total"}, false);
 	tabStats.addTab("Waste", pnlWaste );
 	tabStats.addTab("Reuse", pnlReuse);
 	setVisible(true);
     }
     
-    private BarGraphPanel getBarGraphPanel(JsonObject obj, String[] ignore,String title, String xAxis, String yAxis, String[] properties, boolean Legend){
+    private BarGraphPanel getBarGraphPanel(JsonObject obj, String[] ignore,String title, String xAxis, String yAxis, String[] properties, boolean legend){
 	Set<Entry<String,JsonElement>> wasteSet = new HashSet<>(); 
 	wasteSet.addAll(obj.entrySet());
 	
@@ -96,8 +95,9 @@ public class frmStats extends AppForm{
 	SortedSet<Entry<String,JsonElement>> sortedSet = new TreeSet<>(dateOrderer);
 	sortedSet.addAll(wasteSet);
 	
-	return new BarGraphPanel(new BarGraphInfo(title, xAxis, yAxis, sortedSet, properties, Legend));
+	return new BarGraphPanel(new BarGraphInfo(title, xAxis, yAxis, sortedSet, properties, legend));
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,23 +129,23 @@ public class frmStats extends AppForm{
 
         tabStats.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         getContentPane().add(tabStats);
-        tabStats.setBounds(10, 50, 410, 699);
+        tabStats.setBounds(10, 50, 400, 680);
 
-        btnMode.setText("Mode:");
+        btnMode.setText("Mode: both");
         btnMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModeActionPerformed(evt);
             }
         });
         getContentPane().add(btnMode);
-        btnMode.setBounds(180, 20, 80, 23);
+        btnMode.setBounds(170, 20, 120, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
         // TODO add your handling code here:
-	frmHub hub = new frmHub(getLocation(), data);
+	frmHub hub = new frmHub(getLocation(), data , infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
@@ -155,8 +155,14 @@ public class frmStats extends AppForm{
 	bothMode = !bothMode;
 	if (bothMode){
 	    btnMode.setText("Mode: both");
+	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
+	    tabStats.setComponentAt(0, pnlWaste);
+	    repaint();
 	} else {
 	    btnMode.setText("Mode: total");
+	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total"}, false);
+	    tabStats.setComponentAt(0, pnlWaste);
+	    repaint();
 	}
     }//GEN-LAST:event_btnModeActionPerformed
 

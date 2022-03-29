@@ -2,13 +2,12 @@ package forms;
 
 import com.google.gson.JsonObject;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -19,11 +18,12 @@ public class frmHub extends AppForm {
     /**
      * Creates new form hubForm
      */
-    public frmHub(Point location, JsonObject _data) {
-	super(_data);
+    public frmHub(Point location, JsonObject _data, String infoPath) {
+	super(_data, infoPath);
 	initComponents();
 	try {
-	    Image logo= ImageIO.read(new File("src/images/re_cubed_logo_bg.png")).getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
+	    
+	    Image logo= ImageIO.read(getClass().getResourceAsStream("/images/re_cubed_logo_bg.png")).getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
 	    lblLogo.setIcon(new ImageIcon(logo));
 	} catch (MalformedURLException ex) {
 	    Logger.getLogger(frmHub.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,21 +261,21 @@ public class frmHub extends AppForm {
 
     private void btnProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgressActionPerformed
         // TODO add your handling code here:
-	new frmStats(getLocation(),data);
+	new frmStats(getLocation(),data, infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnProgressActionPerformed
 
     private void btnWasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWasteActionPerformed
         // TODO add your handling code here:
-	new frmWaste(getLocation(),data);
+	new frmWaste(getLocation(),data, infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnWasteActionPerformed
 
     private void btnReduceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReduceActionPerformed
         // TODO add your handling code here:
-	new frmReduce(getLocation(),data);
+	new frmReduce(getLocation(),data, infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnReduceActionPerformed

@@ -15,7 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStream;
 
 public class JSONUtils {
     
@@ -33,6 +35,23 @@ public class JSONUtils {
 	}
 	return null;
     }
+    
+    public static JsonObject readJSON(InputStream stream){
+	
+	try {
+	    String jsonString = "";
+	    int b =stream.read();
+	    while (b != -1){
+		jsonString += (char) b;
+		b = stream.read();
+	    }
+	    JsonObject obj = new GsonBuilder().create().fromJson(jsonString, JsonObject.class);
+	    return obj;
+	}
+	catch (IOException ioe){}
+	return null;
+    }
+    
     
     public static void writeJSON(String filePath, JsonObject obj) {
 	try (BufferedWriter bfw = new BufferedWriter(new FileWriter(new File(filePath)))){

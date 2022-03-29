@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +28,11 @@ public class frmReduce extends AppForm {
     /**
      * Creates new form inpForm
      */
-    public frmReduce(Point location, JsonObject _data) {
-	super(_data);
+    public frmReduce(Point location, JsonObject _data, String infoPath) {
+	super(_data, infoPath);
 	initComponents();
 	try {
-	    Image logo= ImageIO.read(new File("src/images/add_image.png")).getScaledInstance(btnNew.getWidth()-10, btnNew.getHeight()-10, Image.SCALE_SMOOTH);
+	    Image logo= ImageIO.read(getClass().getResourceAsStream("/images/add_image.png")).getScaledInstance(btnNew.getWidth()-10, btnNew.getHeight()-10, Image.SCALE_SMOOTH);
 	    btnNew.setIcon(new ImageIcon(logo));
 	} catch (MalformedURLException ex) {
 	    Logger.getLogger(frmHub.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +173,7 @@ public class frmReduce extends AppForm {
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
         // TODO add your handling code here:
 	save();
-	frmHub hub = new frmHub(getLocation(),data);
+	frmHub hub = new frmHub(getLocation(),data, infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed

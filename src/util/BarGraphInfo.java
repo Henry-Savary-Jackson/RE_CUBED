@@ -14,11 +14,11 @@ public class BarGraphInfo {
 	DefaultCategoryDataset dcd;
 	JFreeChart chart;
 	
-	public BarGraphInfo(String title, String xAxis, String yAxis, Set<Map.Entry<String,JsonElement>> set, String[] properties, boolean Legend){
+	public BarGraphInfo(String title, String xAxis, String yAxis, Set<Map.Entry<String,JsonElement>> set, String[] properties, boolean legend){
 	    dcd = getDataSet(set,properties);
 	    chart = ChartFactory.createBarChart(title, xAxis, yAxis, dcd);
 	    chart.getCategoryPlot().setRangeGridlinePaint(Color.BLACK);
-	    chart.getLegend().setVisible(Legend);
+	    chart.getLegend().setVisible(legend);
 	}
 	
 	private DefaultCategoryDataset getDataSet(Set<Map.Entry<String,JsonElement>> set, String[] properties){
@@ -43,4 +43,6 @@ public class BarGraphInfo {
 	    }
 	    return dataset;
 	}
+
+
     }

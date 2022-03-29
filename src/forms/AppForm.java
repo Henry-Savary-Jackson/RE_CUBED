@@ -8,12 +8,13 @@ import util.JSONUtils;
 
 public class AppForm extends JFrame  implements WindowListener{
     JsonObject data; 
-    String infoPath = "info.json";
+    public String infoPath ;
     
     
-    public AppForm(JsonObject obj){
+    public AppForm(JsonObject obj,String _infoPath){
 	super();
 	data = obj;
+	infoPath = _infoPath;
 	addWindowListener(this);
     }
     

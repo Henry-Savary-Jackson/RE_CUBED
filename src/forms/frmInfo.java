@@ -16,8 +16,8 @@ public class frmInfo extends AppForm {
     /**
      * Creates new form frmInfo
      */
-    public frmInfo(Point location ,JsonObject _data) {
-	super(_data);
+    public frmInfo(Point location ,JsonObject _data, String infoPath) {
+	super(_data, infoPath);
 	initComponents();
 	setLocation(location);
 	setVisible(true);
@@ -59,7 +59,7 @@ public class frmInfo extends AppForm {
         getContentPane().add(btnHub1);
         btnHub1.setBounds(22, 17, 72, 24);
 
-        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/recycling_info.png"))); // NOI18N
+        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/recycling_info.jpg"))); // NOI18N
         getContentPane().add(lblInfo);
         lblInfo.setBounds(10, 70, 400, 630);
 
@@ -72,7 +72,7 @@ public class frmInfo extends AppForm {
 
     private void btnHub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHub1ActionPerformed
         // TODO add your handling code here:
-        frmWaste hub = new frmWaste(getLocation(), data);
+        frmWaste hub = new frmWaste(getLocation(), data, infoPath);
 
         dispose();;
     }//GEN-LAST:event_btnHub1ActionPerformed

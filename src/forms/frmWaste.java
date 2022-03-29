@@ -2,9 +2,7 @@ package forms;
 
 import com.google.gson.JsonObject;
 import java.awt.Point;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +10,11 @@ import javax.swing.JScrollPane;
  */
 public class frmWaste extends AppForm {
 
-    /**
-     * Creates new form inpForm
-     */
-    public frmWaste(Point location, JsonObject _data) {
-	super(_data);
+    public static enum WASTE {
+	RECYCLABLE,NON_RECYCLABLE
+    }
+    public frmWaste(Point location, JsonObject _data, String infoPath) {
+	super(_data, infoPath);
 	initComponents();
 	
 	JsonObject waste = data.getAsJsonObject("WASTE");
@@ -28,32 +26,6 @@ public class frmWaste extends AppForm {
 	dTotalNonRecyclable = waste.getAsJsonPrimitive("total_non_recyclable").getAsDouble();
 	
 	setLocation(location);
-	
-	JPanel pnlRecyclable = new JPanel();
-	JPanel pnlNonRecyclable = new JPanel();
-	
-	pnlRecyclable.setLayout(new BoxLayout(pnlRecyclable,BoxLayout.Y_AXIS));
-	pnlNonRecyclable.setLayout(new BoxLayout(pnlNonRecyclable,BoxLayout.Y_AXIS));
-	
-	JScrollPane scrlRecyclable = new JScrollPane(pnlRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	JScrollPane scrlNonRecyclable = new JScrollPane(pnlNonRecyclable,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	pnlNonRecyclable.add(new pnlWasteBulk(this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	pnlNonRecyclable.add(new pnlWaste("sandwich boxes","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	pnlNonRecyclable.add(new pnlWaste("chip bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	pnlNonRecyclable.add(new pnlWaste("salad tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	pnlNonRecyclable.add(new pnlWaste("raisin bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	pnlNonRecyclable.add(new pnlWaste("sippy bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.NON_RECYCLABLE));
-	
-	pnlRecyclable.add(new pnlWasteBulk(this,pnlWaste.typeOfWaste.RECYCLABLE));
-	pnlRecyclable.add(new pnlWaste("yoghurt tubs","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
-	pnlRecyclable.add(new pnlWaste("plastic water bottles","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
-	pnlRecyclable.add(new pnlWaste("bread bags","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
-	pnlRecyclable.add(new pnlWaste("bottle tops","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
-	pnlRecyclable.add(new pnlWaste("milk sachets","src/images/re_cubed_logo_bg.png",0.5,this,pnlWaste.typeOfWaste.RECYCLABLE));
-	
-	tabWaste.addTab("RECYCLABLE", scrlRecyclable);
-	tabWaste.addTab("NON-RECYCLABLE", scrlNonRecyclable);
 	
 	setVisible(true);
     }
@@ -67,9 +39,23 @@ public class frmWaste extends AppForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         btnHub = new javax.swing.JButton();
-        tabWaste = new javax.swing.JTabbedPane();
         btnInfo = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblAmount = new javax.swing.JLabel();
+        btnRemoveNonRecyclable = new javax.swing.JButton();
+        btnAddNonRecyclable = new javax.swing.JButton();
+        lblAmount1 = new javax.swing.JLabel();
+        txtNonRecyclableWeight = new javax.swing.JTextField();
+        lblAmount2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblAmount3 = new javax.swing.JLabel();
+        btnRemoveRecyclable = new javax.swing.JButton();
+        btnAddRecyclable = new javax.swing.JButton();
+        lblAmount4 = new javax.swing.JLabel();
+        txtRecyclableWeight = new javax.swing.JTextField();
+        lblAmount5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Your waste");
@@ -85,8 +71,6 @@ public class frmWaste extends AppForm {
         });
         getContentPane().add(btnHub);
         btnHub.setBounds(21, 17, 72, 24);
-        getContentPane().add(tabWaste);
-        tabWaste.setBounds(21, 53, 383, 693);
 
         btnInfo.setFont(new java.awt.Font("Futura", 0, 22)); // NOI18N
         btnInfo.setText("?");
@@ -96,32 +80,198 @@ public class frmWaste extends AppForm {
             }
         });
         getContentPane().add(btnInfo);
-        btnInfo.setBounds(350, 16, 50, 30);
+        btnInfo.setBounds(340, 16, 60, 40);
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(254, 188));
+        jPanel1.setLayout(null);
+
+        lblAmount.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount.setText("Kg");
+        jPanel1.add(lblAmount);
+        lblAmount.setBounds(270, 80, 40, 32);
+
+        btnRemoveNonRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
+        btnRemoveNonRecyclable.setText("REMOVE");
+        btnRemoveNonRecyclable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveNonRecyclableActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRemoveNonRecyclable);
+        btnRemoveNonRecyclable.setBounds(200, 180, 150, 50);
+
+        btnAddNonRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
+        btnAddNonRecyclable.setText("ADD");
+        btnAddNonRecyclable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNonRecyclableActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAddNonRecyclable);
+        btnAddNonRecyclable.setBounds(30, 180, 140, 50);
+
+        lblAmount1.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount1.setText("Add or remove in bulk:");
+        jPanel1.add(lblAmount1);
+        lblAmount1.setBounds(50, 30, 270, 32);
+
+        txtNonRecyclableWeight.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        jPanel1.add(txtNonRecyclableWeight);
+        txtNonRecyclableWeight.setBounds(160, 90, 100, 24);
+
+        lblAmount2.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount2.setText("Weight:");
+        jPanel1.add(lblAmount2);
+        lblAmount2.setBounds(50, 80, 101, 32);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(20, 390, 380, 280);
+
+        jPanel2.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(254, 188));
+        jPanel2.setLayout(null);
+
+        lblAmount3.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount3.setText("Kg");
+        jPanel2.add(lblAmount3);
+        lblAmount3.setBounds(270, 80, 40, 32);
+
+        btnRemoveRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
+        btnRemoveRecyclable.setText("REMOVE");
+        btnRemoveRecyclable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveRecyclableActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRemoveRecyclable);
+        btnRemoveRecyclable.setBounds(200, 180, 150, 50);
+
+        btnAddRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
+        btnAddRecyclable.setText("ADD");
+        btnAddRecyclable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddRecyclableActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAddRecyclable);
+        btnAddRecyclable.setBounds(30, 180, 140, 50);
+
+        lblAmount4.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount4.setText("Add or remove in bulk:");
+        jPanel2.add(lblAmount4);
+        lblAmount4.setBounds(50, 30, 270, 32);
+
+        txtRecyclableWeight.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
+        jPanel2.add(txtRecyclableWeight);
+        txtRecyclableWeight.setBounds(160, 90, 100, 24);
+
+        lblAmount5.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount5.setText("Weight:");
+        jPanel2.add(lblAmount5);
+        lblAmount5.setBounds(50, 80, 101, 32);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(20, 80, 380, 280);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHubActionPerformed
 	save();
-	frmHub hub =new frmHub(getLocation(),data);
+	frmHub hub =new frmHub(getLocation(),data ,infoPath);
 	dispose();
     }//GEN-LAST:event_btnHubActionPerformed
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         // TODO add your handling code here:
-	new frmInfo(getLocation(),data);
+	new frmInfo(getLocation(),data, infoPath);
 	
 	dispose();
     }//GEN-LAST:event_btnInfoActionPerformed
+
+    public void changeWeight(int sign, WASTE type, String inp){
+	double weight = 0;
+        try{
+            weight = Double.parseDouble(inp);
+        } catch(NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, "Please enter a valid weight.");
+            return;
+        }
+	switch(type){
+	    case RECYCLABLE -> {
+		double test = dRecyclable + sign *weight;
+		if(test <0){
+		    dTotalRecyclable -= dRecyclable;
+		    dRecyclable = 0;
+		    JOptionPane.showMessageDialog(this, "This month has no recorded recyclable waste.");
+		} else {
+		    dRecyclable = test;
+		    dTotalRecyclable += sign *weight;
+		}
+		System.out.println(dRecyclable);
+	    }
+	    case NON_RECYCLABLE -> {
+		double test = dNonRecyclable + sign *weight;
+		if(test <0){
+		    dTotalNonRecyclable -= dNonRecyclable;
+		    dNonRecyclable = 0;
+		    
+		    JOptionPane.showMessageDialog(this, "This month has no recorded non-recyclable waste.");
+		}else {
+		    dNonRecyclable = test;
+		    dTotalNonRecyclable += sign *weight;
+		}
+		System.out.println(dNonRecyclable);
+	    }
+	}
+    }
+    private void btnRemoveNonRecyclableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveNonRecyclableActionPerformed
+        // TODO add your handling code here:
+        
+        changeWeight(-1, WASTE.NON_RECYCLABLE, txtNonRecyclableWeight.getText());
+    }//GEN-LAST:event_btnRemoveNonRecyclableActionPerformed
+
+    private void btnAddNonRecyclableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNonRecyclableActionPerformed
+        // TODO add your handling code here:
+
+        changeWeight(1, WASTE.NON_RECYCLABLE, txtNonRecyclableWeight.getText());
+    }//GEN-LAST:event_btnAddNonRecyclableActionPerformed
+
+    private void btnRemoveRecyclableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveRecyclableActionPerformed
+        // TODO add your handling code here:
+	changeWeight(-1, WASTE.RECYCLABLE, txtRecyclableWeight.getText());
+    }//GEN-LAST:event_btnRemoveRecyclableActionPerformed
+
+    private void btnAddRecyclableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRecyclableActionPerformed
+        // TODO add your handling code here:
+	changeWeight(1, WASTE.RECYCLABLE,txtRecyclableWeight.getText());
+    }//GEN-LAST:event_btnAddRecyclableActionPerformed
 
     public double dRecyclable;
     public double dNonRecyclable;
     public double dTotalRecyclable;
     public double dTotalNonRecyclable;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddNonRecyclable;
+    private javax.swing.JButton btnAddRecyclable;
     private javax.swing.JButton btnHub;
     private javax.swing.JButton btnInfo;
-    private javax.swing.JTabbedPane tabWaste;
+    private javax.swing.JButton btnRemoveNonRecyclable;
+    private javax.swing.JButton btnRemoveRecyclable;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lblAmount;
+    private javax.swing.JLabel lblAmount1;
+    private javax.swing.JLabel lblAmount2;
+    private javax.swing.JLabel lblAmount3;
+    private javax.swing.JLabel lblAmount4;
+    private javax.swing.JLabel lblAmount5;
+    private javax.swing.JTextField txtNonRecyclableWeight;
+    private javax.swing.JTextField txtRecyclableWeight;
     // End of variables declaration//GEN-END:variables
 
     @Override

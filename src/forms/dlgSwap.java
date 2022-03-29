@@ -1,6 +1,7 @@
 package forms;
 
 import java.awt.Point;
+import javax.swing.JOptionPane;
 import util.ReuseSwap;
 
 public class dlgSwap extends javax.swing.JDialog {
@@ -113,6 +114,7 @@ public class dlgSwap extends javax.swing.JDialog {
 	sNonReusableName = txtNonReusable.getText();
 	
 	if (sReusableName.isEmpty() || sNonReusableName.isEmpty()){
+	    JOptionPane.showMessageDialog(this, "Please provide names for both items");
 	    return;
 	}
 	
@@ -123,6 +125,7 @@ public class dlgSwap extends javax.swing.JDialog {
 	    
 	} catch (NumberFormatException nfe) {
 	    System.out.println(nfe.getMessage());
+	    JOptionPane.showMessageDialog(this, "Please enter a valid decimal number");
 	    return;
 	}
 	form.swaps.add(new ReuseSwap(sReusableName,sNonReusableName,(dNonReusableAmount/dReusableAmount), dNonReusableWeight/dNonReusableAmount));
