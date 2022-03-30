@@ -1,55 +1,55 @@
 {
   "WASTE": {
-    "total_recyclable": 18.0,
-    "total_non_recyclable": 24.5,
+    "total_recyclable": 5.0,
+    "total_non_recyclable": 5.4,
     "2022 JAN": {
-      "total_recyclable": 1.0,
-      "total_non_recyclable": 5.0,
-      "total": 6.0
+      "total_recyclable": 0.0,
+      "total_non_recyclable": 1.4,
+      "total": 2.4
     },
     "2022 FEB": {
       "total_recyclable": 3.0,
-      "total_non_recyclable": 6.0,
-      "total": 9.0
+      "total_non_recyclable": 2.0,
+      "total": 5.0
     },
     "2022 MAR": {
-      "total_recyclable": 6.0,
-      "total_non_recyclable": 5.0,
-      "total": 11.0
+      "total_recyclable": 1.5,
+      "total_non_recyclable": 1.0,
+      "total": 2.5 
     },
     "2022 APR": {
-      "total_recyclable": 8.0,
-      "total_non_recyclable": 8.5,
-      "total": 16.5
+      "total_recyclable": 0.5,
+      "total_non_recyclable": 1.0,
+      "total": 1.5
     }
   },
   "REUSE": {
-    "total": 5.5,
+    "total": 3.5,
     "2022 JAN": {
       "total": 1.0
     },
     "2022 FEB": {
-      "total": 2.0
+      "total": 1.5
     },
     "2022 MAR": {
       "total": 0.5
     },
     "2022 APR": {
-      "total": 2.0
+      "total": 0.5
     }
   },
   "SWAPS": [
     {
-      "nameRecyclable": "test1",
-      "nameNonRecyclable": "test22",
-      "dRatio": 0.5,
-      "dWeight": 1.0
+      "nameRecyclable": "reusable bag",
+      "nameNonRecyclable": "plastic bag",
+      "dRatio": 1.0,
+      "dWeight": 0.08
     },
     {
-      "nameRecyclable": "test3",
-      "nameNonRecyclable": "test7774",
-      "dRatio": 0.4,
-      "dWeight": 2.0
+      "nameRecyclable": "metal straw",
+      "nameNonRecyclable": "plastic straw",
+      "dRatio": 1,
+      "dWeight": 0.0004
     },
     {
       "nameRecyclable": "l",

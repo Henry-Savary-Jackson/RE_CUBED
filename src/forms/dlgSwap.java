@@ -129,7 +129,7 @@ public class dlgSwap extends javax.swing.JDialog {
 	    return;
 	}
 	form.swaps.add(new ReuseSwap(sReusableName,sNonReusableName,(dNonReusableAmount/dReusableAmount), dNonReusableWeight/dNonReusableAmount));
-	
+	form.updateCmbItems();
 	dispose();
     }//GEN-LAST:event_btnDoneActionPerformed
 

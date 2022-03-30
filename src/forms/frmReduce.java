@@ -54,14 +54,26 @@ public class frmReduce extends AppForm {
 	
 	dTotalReuse = data.getAsJsonObject("REUSE").getAsJsonPrimitive("total").getAsDouble();
 	dReuse = data.getAsJsonObject("REUSE").getAsJsonObject("2022 APR").getAsJsonPrimitive("total").getAsDouble();
-	
-	JsonArray jsonArr = data.getAsJsonArray("SWAPS");
-	for (JsonElement e : jsonArr){
-	    swaps.add(new GsonBuilder().create().fromJson(e, ReuseSwap.class));
-	    cmbItems.addItem(e.getAsJsonObject().getAsJsonPrimitive("nameRecyclable").getAsString());
-	}
+
+	setCmbItems();
 	
 	setVisible(true);
+    }
+    
+    private void setCmbItems(){
+	JsonArray jsonArr = data.getAsJsonArray("SWAPS");
+	cmbItems.removeAllItems();
+	for (JsonElement e : jsonArr){
+	    swaps.add(new GsonBuilder().create().fromJson(e, ReuseSwap.class));
+	    cmbItems.addItem(e.getAsJsonObject().getAsJsonPrimitive("nameRecyclable").getAsString());	    
+	}
+    }
+    
+    public void updateCmbItems(){
+	cmbItems.removeAllItems();
+	for (ReuseSwap e : swaps ){
+	    cmbItems.addItem(e.nameRecyclable);	    
+	}
     }
 
     /**
@@ -114,7 +126,7 @@ public class frmReduce extends AppForm {
             }
         });
         getContentPane().add(cmbItems);
-        cmbItems.setBounds(114, 145, 173, 29);
+        cmbItems.setBounds(47, 145, 330, 29);
 
         spinAmount.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         spinAmount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
