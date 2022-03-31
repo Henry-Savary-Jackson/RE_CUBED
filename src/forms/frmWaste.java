@@ -4,10 +4,6 @@ import com.google.gson.JsonObject;
 import java.awt.Point;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author hsavaryjackson
- */
 public class frmWaste extends AppForm {
 
     public static enum WASTE {

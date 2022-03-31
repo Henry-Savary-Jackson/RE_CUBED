@@ -8,10 +8,8 @@ import com.google.gson.JsonObject;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ItemEvent;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +17,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 import util.ReuseSwap;
 
@@ -229,7 +226,7 @@ public class frmReduce extends AppForm {
 	    dReuse = 0;
 	}else {
 	    dTotalReuse -= savedWeight;
-	    lblSaved.setText(String.format("You remove %.2f Kg!", savedWeight));
+	    lblSaved.setText(String.format("You removed %.2f Kg!", savedWeight));
 	    if (!lblSaved.isVisible())
 		lblSaved.setVisible(true);
 	}

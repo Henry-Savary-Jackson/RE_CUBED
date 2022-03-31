@@ -1,9 +1,9 @@
 {
   "WASTE": {
-    "total_recyclable": 5.0,
+    "total_recyclable": 5.5,
     "total_non_recyclable": 5.4,
     "2022 JAN": {
-      "total_recyclable": 0.0,
+      "total_recyclable": 0.5,
       "total_non_recyclable": 1.4,
       "total": 2.4
     },
@@ -40,28 +40,34 @@
   },
   "SWAPS": [
     {
-      "nameRecyclable": "reusable bag",
-      "nameNonRecyclable": "plastic bag",
+      "nameRecyclable": "reusable bags",
+      "nameNonRecyclable": "plastic bags",
       "dRatio": 1.0,
       "dWeight": 0.08
     },
     {
-      "nameRecyclable": "metal straw",
-      "nameNonRecyclable": "plastic straw",
-      "dRatio": 1,
+      "nameRecyclable": "metal straws",
+      "nameNonRecyclable": "plastic straws",
+      "dRatio": 1.0,
       "dWeight": 0.0004
     },
     {
-      "nameRecyclable": "l",
-      "nameNonRecyclable": "lllll",
+      "nameRecyclable": "pieces of wooden cutlery",
+      "nameNonRecyclable": " pieces of single-use cutlery",
       "dRatio": 1.0,
-      "dWeight": 0.6666666666666666
+      "dWeight": 0.0006
     },
     {
-      "nameRecyclable": "kk",
-      "nameNonRecyclable": "kkky",
-      "dRatio": 1.5,
-      "dWeight": 0.3333333333333333
+      "nameRecyclable": "reusable bottles",
+      "nameNonRecyclable": "plastic bottles",
+      "dRatio": 1.0,
+      "dWeight": 0.048
+    },
+    {
+      "nameRecyclable": "glass jars",
+      "nameNonRecyclable": "disposable plastic tray",
+      "dRatio": 1.0,
+      "dWeight": 0.01
     }
   ]
 }
