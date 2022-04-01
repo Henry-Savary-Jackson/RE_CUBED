@@ -51,7 +51,7 @@ public class frmInfo extends AppForm {
         getContentPane().add(btnHub1);
         btnHub1.setBounds(22, 17, 72, 24);
 
-        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/recycling_info.jpg"))); // NOI18N
+        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/recycling_info.png"))); // NOI18N
         getContentPane().add(lblInfo);
         lblInfo.setBounds(10, 70, 400, 630);
 
