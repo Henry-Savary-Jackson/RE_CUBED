@@ -45,6 +45,7 @@ public class frmWaste extends AppForm {
         lblAmount1 = new javax.swing.JLabel();
         txtNonRecyclableWeight = new javax.swing.JTextField();
         lblAmount2 = new javax.swing.JLabel();
+        lblAmount6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblAmount3 = new javax.swing.JLabel();
         btnRemoveRecyclable = new javax.swing.JButton();
@@ -52,6 +53,7 @@ public class frmWaste extends AppForm {
         lblAmount4 = new javax.swing.JLabel();
         txtRecyclableWeight = new javax.swing.JTextField();
         lblAmount5 = new javax.swing.JLabel();
+        lblAmount7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Your waste");
@@ -86,7 +88,7 @@ public class frmWaste extends AppForm {
         lblAmount.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblAmount.setText("Kg");
         jPanel1.add(lblAmount);
-        lblAmount.setBounds(270, 80, 40, 32);
+        lblAmount.setBounds(280, 110, 40, 32);
 
         btnRemoveNonRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         btnRemoveNonRecyclable.setText("REMOVE");
@@ -109,18 +111,24 @@ public class frmWaste extends AppForm {
         btnAddNonRecyclable.setBounds(30, 180, 140, 50);
 
         lblAmount1.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
-        lblAmount1.setText("Add or remove in bulk:");
+        lblAmount1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAmount1.setText("NON-RECYCLABLE");
         jPanel1.add(lblAmount1);
-        lblAmount1.setBounds(50, 30, 270, 32);
+        lblAmount1.setBounds(50, 10, 270, 32);
 
         txtNonRecyclableWeight.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
         jPanel1.add(txtNonRecyclableWeight);
-        txtNonRecyclableWeight.setBounds(160, 90, 100, 24);
+        txtNonRecyclableWeight.setBounds(160, 120, 100, 24);
 
         lblAmount2.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblAmount2.setText("Weight:");
         jPanel1.add(lblAmount2);
-        lblAmount2.setBounds(50, 80, 101, 32);
+        lblAmount2.setBounds(50, 110, 101, 32);
+
+        lblAmount6.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount6.setText("Add or remove in bulk:");
+        jPanel1.add(lblAmount6);
+        lblAmount6.setBounds(50, 60, 270, 32);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(20, 390, 380, 280);
@@ -133,7 +141,7 @@ public class frmWaste extends AppForm {
         lblAmount3.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblAmount3.setText("Kg");
         jPanel2.add(lblAmount3);
-        lblAmount3.setBounds(270, 80, 40, 32);
+        lblAmount3.setBounds(270, 110, 40, 32);
 
         btnRemoveRecyclable.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         btnRemoveRecyclable.setText("REMOVE");
@@ -158,16 +166,22 @@ public class frmWaste extends AppForm {
         lblAmount4.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblAmount4.setText("Add or remove in bulk:");
         jPanel2.add(lblAmount4);
-        lblAmount4.setBounds(50, 30, 270, 32);
+        lblAmount4.setBounds(50, 60, 270, 32);
 
         txtRecyclableWeight.setFont(new java.awt.Font("Futura", 0, 13)); // NOI18N
         jPanel2.add(txtRecyclableWeight);
-        txtRecyclableWeight.setBounds(160, 90, 100, 24);
+        txtRecyclableWeight.setBounds(160, 120, 100, 24);
 
         lblAmount5.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
         lblAmount5.setText("Weight:");
         jPanel2.add(lblAmount5);
-        lblAmount5.setBounds(50, 80, 101, 32);
+        lblAmount5.setBounds(50, 120, 101, 32);
+
+        lblAmount7.setFont(new java.awt.Font("Futura", 0, 24)); // NOI18N
+        lblAmount7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAmount7.setText("RECYCLABLE");
+        jPanel2.add(lblAmount7);
+        lblAmount7.setBounds(60, 10, 270, 32);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 80, 380, 280);
@@ -266,6 +280,8 @@ public class frmWaste extends AppForm {
     private javax.swing.JLabel lblAmount3;
     private javax.swing.JLabel lblAmount4;
     private javax.swing.JLabel lblAmount5;
+    private javax.swing.JLabel lblAmount6;
+    private javax.swing.JLabel lblAmount7;
     private javax.swing.JTextField txtNonRecyclableWeight;
     private javax.swing.JTextField txtRecyclableWeight;
     // End of variables declaration//GEN-END:variables
