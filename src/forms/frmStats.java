@@ -155,12 +155,12 @@ public class frmStats extends AppForm{
 	bothMode = !bothMode;
 	if (bothMode){
 	    btnMode.setText("Mode: both");
-	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
+	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste over time","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
 	    tabStats.setComponentAt(0, pnlWaste);
 	    repaint();
 	} else {
 	    btnMode.setText("Mode: total");
-	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total"}, false);
+	    pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste over time","Month", "Weight(Kg)",new String[]{"total"}, false);
 	    tabStats.setComponentAt(0, pnlWaste);
 	    repaint();
 	}
