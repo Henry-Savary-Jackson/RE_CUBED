@@ -79,8 +79,8 @@ public class frmStats extends AppForm{
 	initComponents();
 	setLocation(location);
 	
-	pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
-	pnlReuse = getBarGraphPanel(data.getAsJsonObject("REUSE"),new String[]{"total"},"Waste Saved", "Month", "Weight(Kg)",new String[]{"total"}, false);
+	pnlWaste = getBarGraphPanel(data.getAsJsonObject("WASTE"),new String[]{"total_recyclable","total_non_recyclable"},"Your waste over time","Month", "Weight(Kg)",new String[]{"total_recyclable","total_non_recyclable"}, true);
+	pnlReuse = getBarGraphPanel(data.getAsJsonObject("REUSE"),new String[]{"total"},"Waste Saved over time", "Month", "Weight(Kg)",new String[]{"total"}, false);
 	tabStats.addTab("Waste", pnlWaste );
 	tabStats.addTab("Reuse", pnlReuse);
 	setVisible(true);
